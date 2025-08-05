@@ -68,21 +68,15 @@
         {
             case nameof(WeatherForecast.TemperatureC):
                 if (value is int temperatureC)
-                {
                     editModel!.TemperatureC = temperatureC;
-                }
                 break;
             case nameof(WeatherForecast.Date):
                 if (value is DateTime date)
-                {
                     editModel!.Date = date;
-                }
                 break;
             case nameof(WeatherForecast.Summary):
                 if (value is string summary)
-                {
                     editModel!.Summary = summary;
-                }
                 break;
             default:
                 throw new InvalidOperationException($"Unknown field: {key}");
@@ -93,13 +87,9 @@
     {
         if (ctx.Model is not WeatherForecast wf) return;
         if (IsNew)
-        {
             InsertRecord(wf);
-        }
         else
-        {
             UpdateRecord(wf);
-        }
         grid?.Reload();
         ClosePopup();
     }
@@ -112,21 +102,17 @@
 
     private void UpdateRecord(WeatherForecast wf)
     {
-        var updateIndex = forecasts!.FindIndex(f => f.ID == wf.ID);
-        var toUpdate = new WeatherForecast();
-        toUpdate.ID = wf.ID;
-        toUpdate.TemperatureC = wf.TemperatureC;
-        toUpdate.Date = wf.Date;
-        toUpdate.Summary = wf.Summary;
-        forecasts[updateIndex] = toUpdate;
+        var itemToUpdate = forecasts!.First(f => f.ID == wf.ID);
+        itemToUpdate.TemperatureC = wf.TemperatureC;
+        itemToUpdate.Date = wf.Date;
+        itemToUpdate.Summary = wf.Summary;
     }
 
     private void ShowPopup(object dataItem)
     {
         if (dataItem is not WeatherForecast wf)
-        {
             throw new InvalidOperationException("Invalid data item type.");
-        }
+
         editModel = new WeatherForecast()
         {
             ID = wf.ID,
