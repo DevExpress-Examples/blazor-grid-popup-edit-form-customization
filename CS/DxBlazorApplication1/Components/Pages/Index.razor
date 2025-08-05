@@ -1,0 +1,154 @@
+﻿@page "/"
+@using DxBlazorApplication1.Services
+@rendermode InteractiveServer
+@inject WeatherForecastService ForecastService
+
+<DxGrid @ref=grid Data="@forecasts">
+    <Columns>
+        <DxGridCommandColumn
+            NewButtonVisible=false 
+            DeleteButtonVisible=false 
+            EditButtonVisible=false>
+            <HeaderTemplate>
+                <DxButton CssClass="w-100" RenderStyle="ButtonRenderStyle.Link"
+                          Click="() => ShowPopup(new WeatherForecast())"
+                          Text="New"></DxButton>
+            </HeaderTemplate>
+            <CellDisplayTemplate>
+                <DxButton RenderStyle="ButtonRenderStyle.Link" 
+                    Click="() => ShowPopup(context.DataItem)" 
+                    Text="Edit"></DxButton>
+            </CellDisplayTemplate>
+        </DxGridCommandColumn>
+        <DxGridDataColumn Caption="Date" FieldName="Date" />
+        <DxGridDataColumn Caption="Temperature (C)" FieldName="TemperatureC" />
+        <DxGridDataColumn Caption="Temperature (F)" FieldName="TemperatureF" />
+        <DxGridDataColumn Caption="Summary" FieldName="Summary" />
+    </Columns>
+</DxGrid>
+
+@if (PopupVisible)
+{
+    <DxPopup Visible=PopupVisible
+             VisibleChanged="OnVisibleChanged"
+             AllowDrag=true
+             AllowResize=true
+             CloseOnEscape=false
+             HeaderText="Custom Edit Form">
+        <BodyContentTemplate Context="popupContext">
+            <EditForm Model="@editModel" Context="editFormContext" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <DxFormLayout Data="@editModel" ItemUpdating="@((pair) => OnItemUpdating(pair.Key, pair.Value))">
+                    <DxFormLayoutItem Caption="Date" Field="Date"></DxFormLayoutItem>
+                    <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC"></DxFormLayoutItem>
+                    <DxFormLayoutItem ReadOnly=true Caption="Temperature F" Field="TemperatureF"></DxFormLayoutItem>
+                    <DxFormLayoutItem Caption="Summary" Field="Summary"></DxFormLayoutItem>
+                    <DxFormLayoutItem ColSpanLg="12">
+                        <div class="w-100" style="display: flex; justify-content: end; gap: 1rem;">
+                            <DxButton RenderStyle=ButtonRenderStyle.Primary Text="Save" SubmitFormOnClick=true></DxButton>
+                            <DxButton RenderStyle=ButtonRenderStyle.Secondary Text="Cancel" Click="ClosePopup"></DxButton>
+                        </div>
+                    </DxFormLayoutItem>
+                </DxFormLayout>
+            </EditForm>
+        </BodyContentTemplate>
+    </DxPopup>
+}
+
+@code {
+    private DxGrid? grid;
+    private WeatherForecast? editModel;
+    private List<WeatherForecast> forecasts = [];
+    private bool PopupVisible => editModel != null;
+    private bool IsNew => !forecasts.Any(f => f.ID == editModel!.ID);
+
+    private void OnItemUpdating(string key, object value)
+    {
+        switch (key)
+        {
+            case nameof(WeatherForecast.TemperatureC):
+                if (value is int temperatureC)
+                {
+                    editModel!.TemperatureC = temperatureC;
+                }
+                break;
+            case nameof(WeatherForecast.Date):
+                if (value is DateTime date)
+                {
+                    editModel!.Date = date;
+                }
+                break;
+            case nameof(WeatherForecast.Summary):
+                if (value is string summary)
+                {
+                    editModel!.Summary = summary;
+                }
+                break;
+            default:
+                throw new InvalidOperationException($"Unknown field: {key}");
+        }
+    }
+
+    private void OnValidSubmit(EditContext ctx)
+    {
+        if (ctx.Model is not WeatherForecast wf) return;
+        if (IsNew)
+        {
+            InsertRecord(wf);
+        }
+        else
+        {
+            UpdateRecord(wf);
+        }
+        grid?.Reload();
+        ClosePopup();
+    }
+
+    private void InsertRecord(WeatherForecast wf)
+    {
+        wf.ID = forecasts.Max(f => f.ID) + 1;
+        forecasts.Add(wf);
+    }
+
+    private void UpdateRecord(WeatherForecast wf)
+    {
+        var updateIndex = forecasts!.FindIndex(f => f.ID == wf.ID);
+        var toUpdate = new WeatherForecast();
+        toUpdate.ID = wf.ID;
+        toUpdate.TemperatureC = wf.TemperatureC;
+        toUpdate.Date = wf.Date;
+        toUpdate.Summary = wf.Summary;
+        forecasts[updateIndex] = toUpdate;
+    }
+
+    private void ShowPopup(object dataItem)
+    {
+        if (dataItem is not WeatherForecast wf)
+        {
+            throw new InvalidOperationException("Invalid data item type.");
+        }
+        editModel = new WeatherForecast()
+        {
+            ID = wf.ID,
+            Date = wf.Date,
+            TemperatureC = wf.TemperatureC,
+            Summary = wf.Summary
+        };
+    }
+
+    private void ClosePopup()
+    {
+        editModel = null;
+    }
+
+    private void OnVisibleChanged(bool visible)
+    {
+        if (!visible)
+            ClosePopup();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}
