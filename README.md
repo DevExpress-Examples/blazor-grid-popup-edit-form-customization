@@ -6,17 +6,17 @@
 <!-- default badges end -->
 # Blazor Grid - Use an External Popup to Customize an Edit Form
 
-This example uses the [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxPopup) dialog alongside our [Blazor Grid](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid) to customize the pop-up edit form.
+This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxPopup) dialog alongside our [Blazor Grid](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid) to customize a pop-up edit form. In this example, the edit form is resizable and draggable, and does not close on Escape.
 
 ![Customizable Popup Edit Form](result.png)
 
 ## Implementation Details
 
-1. Create a custom dialog using `DxPopup` as your requirements dictate (enable drag and resize operations, specify dialog size, etc). Add edit form (dialog) content. In this example, we use a [DxFormLayout]() to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
+1. Create a custom dialog using `DxPopup` as your requirements dictate. Add edit form (dialog) content. In this example, we use a [DxFormLayout]() to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
 1. Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup and disable built-in command buttons.
 1. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add buttons for custom **New** and **Edit** dialogs.
 1. Implement a method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record (`ShowPopup` in our implementation).
-1. When user input is valid ([EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), create a new record or update exiting one.
+1. When user input is valid ([EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), create a new record or update existing one.
 
 ## Files to Review
 
