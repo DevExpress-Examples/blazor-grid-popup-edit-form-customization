@@ -5,9 +5,9 @@
 
 <DxGrid @ref=grid Data="@forecasts">
     <Columns>
-        <DxGridCommandColumn NewButtonVisible=false
-                             DeleteButtonVisible=false
-                             EditButtonVisible=false>
+        <DxGridCommandColumn NewButtonVisible="false"
+                             DeleteButtonVisible="false"
+                             EditButtonVisible="false">
             <HeaderTemplate>
                 <DxButton CssClass="w-100" RenderStyle="ButtonRenderStyle.Link"
                           Click="() => ShowPopup(new WeatherForecast())"
@@ -27,12 +27,13 @@
 </DxGrid>
 
 @if(PopupVisible) {
-    <DxPopup Visible=PopupVisible
+    <DxPopup Visible="PopupVisible"
              VisibleChanged="OnVisibleChanged"
-             AllowDrag=true
-             AllowResize=true
-             CloseOnEscape=false
-             HeaderText="Custom Edit Form">
+             AllowDrag="true"
+             AllowResize="true"
+             CloseOnEscape="false"
+             HeaderText="Custom Edit Form"
+             Width="600px">
         <BodyContentTemplate Context="popupContext">
             <EditForm Model="@editModel" Context="editFormContext" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
