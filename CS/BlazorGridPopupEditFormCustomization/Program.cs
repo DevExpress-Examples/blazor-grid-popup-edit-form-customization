@@ -1,5 +1,5 @@
-using DxBlazorApplication1.Services;
-using DxBlazorApplication1.Components;
+using BlazorGridPopupEditFormCustomization.Services;
+using BlazorGridPopupEditFormCustomization.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

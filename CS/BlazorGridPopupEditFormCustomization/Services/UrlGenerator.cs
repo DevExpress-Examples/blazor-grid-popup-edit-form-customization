@@ -1,6 +1,6 @@
 using System.Web;
 
-namespace DxBlazorApplication1 {
+namespace BlazorGridPopupEditFormCustomization {
     public static class UrlGenerator {
         public const string ToggleSidebarName = "toggledSidebar";
         public static string GetUrl(string baseUrl, bool toggledSidebar) {
