@@ -1,4 +1,4 @@
-namespace DxBlazorApplication1.Services {
+namespace BlazorGridPopupEditFormCustomization.Services {
     public class WeatherForecastService {
         private static readonly string[] Summaries = new[]
         {

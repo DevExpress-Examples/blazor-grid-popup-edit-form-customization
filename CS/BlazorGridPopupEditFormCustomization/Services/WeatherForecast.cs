@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DxBlazorApplication1.Services {
+namespace BlazorGridPopupEditFormCustomization.Services {
     public class WeatherForecast {
         [Key]
         public int ID { get; set; }
