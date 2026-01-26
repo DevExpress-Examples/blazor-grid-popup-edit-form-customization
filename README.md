@@ -20,7 +20,7 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 ## Files to Review
 
-- [Index.razor](./CS/DxBlazorApplication1/Components/Pages/Index.razor)
+- [Index.razor](./CS/BlazorGridPopupEditFormCustomization/Components/Pages/Index.razor)
 
 ## Documentation
 
@@ -39,3 +39,4 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+
