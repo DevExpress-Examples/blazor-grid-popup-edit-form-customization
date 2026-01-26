@@ -5,7 +5,7 @@
 
 <DxGrid @ref=grid Data="@forecasts">
     <Columns>
-        <DxGridCommandColumn />
+        <DxGridCommandColumn>
             <HeaderTemplate>
                 <DxButton CssClass="w-100" RenderStyle="ButtonRenderStyle.Link"
                           Click="() => ShowPopup(new WeatherForecast())"
