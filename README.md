@@ -1,34 +1,36 @@
 <!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/1032499589/25.2.3%2B)
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1317391)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# Product/Platform - Task
+# Blazor Grid - Use an External Popup as an Edit Form
 
-This is the repository template for creating new examples. Describe the solved task here.
+This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxPopup) as a custom edit form for the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid) component. In this example, the edit form is resizable and draggable, and does not close on Escape.
 
-Put a screenshot that illustrates the result here.
+![Customizable Popup Edit Form](result.png)
 
-Then, add implementation details (steps, code snippets, and other technical information in a free form), or add a link to an existing document with implementation details. 
+## Implementation Details
+
+1. Add a `DxPopup` component and populate it with required edit form content. This example uses a [DxFormLayout]() to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
+1. Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup.
+1. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
+1. Implement a method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record (`ShowPopup` in our implementation).
+1. When a user submits the form and validation is successful ([EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values. 
 
 ## Files to Review
 
-- link.cs (VB: link.vb)
-- link.js
-- ...
+- [Index.razor](./CS/DxBlazorApplication1/Components/Pages/Index.razor)
 
 ## Documentation
 
-- link
-- link
-- ...
+- [Pop-Up and Inline Edit Forms in Blazor Grid](https://docs.devexpress.com/Blazor/404757/components/grid/editing-and-validation/edit-modes/edit-forms)
+- [DxPopup](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxPopup)
 
 ## More Examples
 
-- link
-- link
-- ...
+- [Grid for Blazor - How to edit a row on a separate page](https://github.com/DevExpress-Examples/blazor-grid-separate-edit-form)
+- [Grid for Blazor - Create a custom record deletion confirmation dialog](https://github.com/DevExpress-Examples/blazor-grid-show-custom-confirmation-dialog)
+
 <!-- feedback -->
 ## Does this example address your development requirements/objectives?
 
