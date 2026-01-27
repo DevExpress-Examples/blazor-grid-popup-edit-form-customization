@@ -8,7 +8,7 @@
 
 This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxPopup) as a custom edit form for the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid) component. In this example, the edit form is resizable/draggable, and does not close on Escape.
 
-![Customizable Popup Edit Form](result.png)
+![Customizable Popup Edit Form](./result.png)
 
 ## Implementation Details
 
@@ -39,5 +39,6 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+
 
 
