@@ -19,10 +19,10 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
     <Columns>
         <DxGridCommandColumn>
             <HeaderTemplate>
-                <DxButton Click="() => ShowPopup(new WeatherForecast())" Text="New"></DxButton>
+                <DxButton Text="New" Click="() => ShowPopup(new WeatherForecast())"></DxButton>
             </HeaderTemplate>
             <CellDisplayTemplate>
-                <DxButton Click="() => ShowPopup(context.DataItem)" Text="Edit"></DxButton>
+                <DxButton Text="Edit" Click="() => ShowPopup(context.DataItem)"></DxButton>
             </CellDisplayTemplate>
         </DxGridCommandColumn>
         // ...
