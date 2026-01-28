@@ -51,7 +51,7 @@ Add a `DxPopup` component and populate it with required edit form content. This 
 }
 ```
 
-Implement `ShowPopup()`/`ClosePopup()` methods that create/reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) (record data). When an edit model is available, the popup form is visible. 
+Implement `ShowPopup()`/`ClosePopup()` methods that create/reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) (edit row data). When an edit model is available, the popup form is visible. 
 
 ```
 @code {
