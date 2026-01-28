@@ -40,6 +40,10 @@ Add a `DxPopup` component and populate it with required edit form content. This 
                 <DataAnnotationsValidator></DataAnnotationsValidator>
                 <DxFormLayout Data="@editModel">
                   // ...
+                     <DxFormLayoutItem>
+                        <DxButton Text="Save" SubmitFormOnClick=true></DxButton>
+                        <DxButton Text="Cancel" Click="ClosePopup"></DxButton>
+                     </DxFormLayoutItem>
                 </DxFormLayout>
             </EditForm>
         </BodyContentTemplate>
@@ -47,7 +51,7 @@ Add a `DxPopup` component and populate it with required edit form content. This 
 }
 ```
 
-Implement a `ShowPopup()` method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record. When an edit model is available, the popup form appears. 
+Implement `ShowPopup()`/`ClosePopup()` methods that create/reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) (new/existing record data). When an edit model is available, the popup form is visible. 
 
 ```
 @code {
@@ -60,6 +64,9 @@ Implement a `ShowPopup()` method that creates an [edit model](https://docs.devex
          // ...
       };
    }
+    private void ClosePopup() {
+        editModel = null;
+    }
 }
 ```
 
