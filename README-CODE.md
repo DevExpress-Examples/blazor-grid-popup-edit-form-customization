@@ -16,18 +16,22 @@ Add a `DxPopup` component and populate it with required edit form content. This 
 
 ```razor
 <DxPopup Visible="PopupVisible">
-    <BodyContentTemplate>
-        <EditForm Model="@editModel" OnValidSubmit="OnValidSubmit">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <DxFormLayout Data="@editModel">
-               <!-- ... -->
-               <DxFormLayoutItem>
-                  <DxButton Text="Save" SubmitFormOnClick=true></DxButton>
-                  <DxButton Text="Cancel" Click="ClosePopup"></DxButton>
-               </DxFormLayoutItem>
-           </DxFormLayout>
-        </EditForm>
-    </BodyContentTemplate>
+   <BodyContentTemplate>
+      <EditForm Model="@editModel">
+         <DxFormLayout Data="@editModel">
+            <DxFormLayoutItem Caption="Date" Field="Date" />
+            <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC" />
+            <DxFormLayoutItem Caption="Temperature F" Field="TemperatureF" ReadOnly=true />
+            <DxFormLayoutItem Caption="Summary" Field="Summary" />
+            <DxFormLayoutItem ColSpanLg="12">
+               <div class="w-100" style="display: flex; justify-content: end; gap: 1rem;">
+                  <DxButton RenderStyle=ButtonRenderStyle.Primary Text="Save" SubmitFormOnClick=true></DxButton>
+                  <DxButton RenderStyle=ButtonRenderStyle.Secondary Text="Cancel" Click="ClosePopup"></DxButton>
+               </div>
+            </DxFormLayoutItem>
+         </DxFormLayout>
+      </EditForm>
+   </BodyContentTemplate>
 </DxPopup>
 ```
 
