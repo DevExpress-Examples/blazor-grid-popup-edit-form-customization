@@ -85,7 +85,7 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
 </DxGrid>
 ```
 
-### Finalize the Popup Form
+### Populate the Popup Form with Editors and Command Buttons
 
 Populate the `DxPopup` component with required edit form content - data editors and action buttons. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange UI controls.
 
