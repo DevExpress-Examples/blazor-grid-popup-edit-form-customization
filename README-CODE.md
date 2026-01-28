@@ -14,7 +14,7 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
 
-```
+```razor
 <DxGrid>
     <Columns>
         <DxGridCommandColumn>
@@ -25,54 +25,47 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
                 <DxButton Text="Edit" Click="() => ShowPopup(context.DataItem)"></DxButton>
             </CellDisplayTemplate>
         </DxGridCommandColumn>
-        // ...
+        <!-- ... -->
     </Columns>
 </DxGrid>
 ```
 
 Add a `DxPopup` component and populate it with required edit form content. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
 
+```razor
+<DxPopup Visible="PopupVisible">
+    <BodyContentTemplate>
+        <EditForm Model="@editModel" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <DxFormLayout Data="@editModel">
+               <!-- ... -->
+               <DxFormLayoutItem>
+                  <DxButton Text="Save" SubmitFormOnClick=true></DxButton>
+                  <DxButton Text="Cancel" Click="ClosePopup"></DxButton>
+               </DxFormLayoutItem>
+           </DxFormLayout>
+        </EditForm>
+    </BodyContentTemplate>
+</DxPopup>
 ```
-@if(PopupVisible) {
-    <DxPopup Visible="PopupVisible">
-        <BodyContentTemplate>
-            <EditForm Model="@editModel" OnValidSubmit="OnValidSubmit">
-                <DataAnnotationsValidator></DataAnnotationsValidator>
-                <DxFormLayout Data="@editModel">
-                   // ...
-                   <DxFormLayoutItem>
-                      <DxButton Text="Save" SubmitFormOnClick=true></DxButton>
-                      <DxButton Text="Cancel" Click="ClosePopup"></DxButton>
-                   </DxFormLayoutItem>
-               </DxFormLayout>
-            </EditForm>
-        </BodyContentTemplate>
-    </DxPopup>
+
+Implement `ShowPopup()`/`ClosePopup()` methods that create/reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model). When an edit model is available, the popup form is visible. 
+
+```razor
+private WeatherForecast? editModel;
+private bool PopupVisible => editModel != null;
+
+private void ShowPopup(object dataItem) {
+  editModel = new WeatherForecast() { ... };
 }
-```
-
-Implement `ShowPopup()`/`ClosePopup()` methods that create/reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) (edit row data). When an edit model is available, the popup form is visible. 
-
-```
-@code {
-   private WeatherForecast? editModel;
-   private bool PopupVisible => editModel != null;
-
-   private void ShowPopup(object dataItem) {
-      // ...
-      editModel = new WeatherForecast() {
-         // ...
-      };
-   }
-    private void ClosePopup() {
-        editModel = null;
-    }
+private void ClosePopup() {
+    editModel = null;
 }
 ```
 
 When a user submits the form and validation is successful ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
 
-```
+```razor
 private bool IsNew => !forecasts.Any(f => f.ID == editModel!.ID);
 private void OnValidSubmit(EditContext ctx) {
     // ...
