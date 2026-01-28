@@ -34,9 +34,9 @@ Implement `ShowPopup()` and `ClosePopup()` methods that create and reset an [edi
 }
 ```
 
-### Update Data
+### Save User Input
 
-Add an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to the popup. When a user successfully submits the edit form ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
+Add an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to the popup. Assign a function to the [OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)) property. This function updates the data source when a user posts changes that pass validation.
 
 ```
 <DxPopup Visible="PopupVisible">
