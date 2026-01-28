@@ -15,7 +15,7 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
 
 ```
-<DxGrid @ref=grid Data="@forecasts">
+<DxGrid>
     <Columns>
         <DxGridCommandColumn>
             <HeaderTemplate>
