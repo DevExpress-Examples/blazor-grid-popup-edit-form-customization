@@ -61,7 +61,7 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
 
 ### Populate the Popup Form with Editors and Command Buttons
 
-Populate the `DxPopup` component with required edit form content - data editors and action buttons. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange UI controls.
+Populate the `DxPopup` component with required edit form content - data editors and action buttons. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange UI controls. An `EditForm` wraps the form content. The next step describes how this component helps process user input. 
 
 ```razor
 <DxPopup Visible="PopupVisible">
@@ -84,7 +84,7 @@ Populate the `DxPopup` component with required edit form content - data editors 
 </DxPopup>
 ```
 
-### Save User Input
+### Process User Input
 
 Add an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to the popup. Assign a function to the [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit) property. This function updates the data source when a user posts changes that pass validation.
 
