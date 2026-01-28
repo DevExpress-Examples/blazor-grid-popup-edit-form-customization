@@ -12,24 +12,6 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 ## Implementation Details
 
-Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
-
-```razor
-<DxGrid>
-    <Columns>
-        <DxGridCommandColumn>
-            <HeaderTemplate>
-                <DxButton Text="New" Click="() => ShowPopup(new WeatherForecast())"></DxButton>
-            </HeaderTemplate>
-            <CellDisplayTemplate>
-                <DxButton Text="Edit" Click="() => ShowPopup(context.DataItem)"></DxButton>
-            </CellDisplayTemplate>
-        </DxGridCommandColumn>
-        <!-- ... -->
-    </Columns>
-</DxGrid>
-```
-
 Add a `DxPopup` component and populate it with required edit form content. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
 
 ```razor
@@ -47,6 +29,24 @@ Add a `DxPopup` component and populate it with required edit form content. This 
         </EditForm>
     </BodyContentTemplate>
 </DxPopup>
+```
+
+Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
+
+```razor
+<DxGrid>
+    <Columns>
+        <DxGridCommandColumn>
+            <HeaderTemplate>
+                <DxButton Text="New" Click="() => ShowPopup(new WeatherForecast())"></DxButton>
+            </HeaderTemplate>
+            <CellDisplayTemplate>
+                <DxButton Text="Edit" Click="() => ShowPopup(context.DataItem)"></DxButton>
+            </CellDisplayTemplate>
+        </DxGridCommandColumn>
+        <!-- ... -->
+    </Columns>
+</DxGrid>
 ```
 
 Implement `ShowPopup()`/`ClosePopup()` methods that create/reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model). When an edit model is available, the popup form is visible. 
