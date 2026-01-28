@@ -12,7 +12,7 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 ## Implementation Details
 
-### Data Model for the Edit Row
+### Create a Data Model for the Edit Row
 
 Implement `ShowPopup()` and `ClosePopup()` methods that create and reset an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) (edit row data). When an edit model is available, the popup form appears (`DxPopup`). 
 
