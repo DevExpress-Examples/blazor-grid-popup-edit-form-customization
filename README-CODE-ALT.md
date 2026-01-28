@@ -26,7 +26,12 @@ Implement `ShowPopup()` and `ClosePopup()` methods that create and reset an [edi
    private bool PopupVisible => editModel != null;
 
    private void ShowPopup(object dataItem) {
-      editModel = new WeatherForecast() { ... };
+      editModel = new WeatherForecast() {
+            ID = wf.ID,
+            Date = wf.Date,
+            TemperatureC = wf.TemperatureC,
+            Summary = wf.Summary
+      };
    }
     private void ClosePopup() {
         editModel = null;
