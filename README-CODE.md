@@ -20,14 +20,9 @@ Implement a `ShowPopup()` method that creates an [edit model](https://docs.devex
    private bool PopupVisible => editModel != null;
 
    private void ShowPopup(object dataItem) {
-      if(dataItem is not WeatherForecast wf)
-         throw new InvalidOperationException("Invalid data item type.");
-
+      // ...
       editModel = new WeatherForecast() {
-         ID = wf.ID,
-         Date = wf.Date,
-         TemperatureC = wf.TemperatureC,
-         Summary = wf.Summary
+         // ...
       };
    }
 }
@@ -40,14 +35,10 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
     <Columns>
         <DxGridCommandColumn>
             <HeaderTemplate>
-                <DxButton CssClass="w-100" RenderStyle="ButtonRenderStyle.Link"
-                          Click="() => ShowPopup(new WeatherForecast())"
-                          Text="New"></DxButton>
+                <DxButton Click="() => ShowPopup(new WeatherForecast())" Text="New"></DxButton>
             </HeaderTemplate>
             <CellDisplayTemplate>
-                <DxButton RenderStyle="ButtonRenderStyle.Link"
-                          Click="() => ShowPopup(context.DataItem)"
-                          Text="Edit"></DxButton>
+                <DxButton Click="() => ShowPopup(context.DataItem)" Text="Edit"></DxButton>
             </CellDisplayTemplate>
         </DxGridCommandColumn>
         // ...
@@ -59,25 +50,12 @@ Add a `DxPopup` component and populate it with required edit form content. This 
 
 ```
 @if(PopupVisible) {
-    <DxPopup Visible="PopupVisible"
-             CloseOnEscape="false"
-             HeaderText="Custom Edit Form"
-             // ...
-             Width="600px">
-        <BodyContentTemplate Context="popupContext">
-            <EditForm Model="@editModel" Context="editFormContext" OnValidSubmit="OnValidSubmit">
+    <DxPopup Visible="PopupVisible">
+        <BodyContentTemplate>
+            <EditForm Model="@editModel" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
-                <DxFormLayout Data="@editModel" ItemUpdating="@((pair) => OnItemUpdating(pair.Key, pair.Value))">
-                    <DxFormLayoutItem Caption="Date" Field="Date" />
-                    <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC" />
-                    <DxFormLayoutItem ReadOnly=true Caption="Temperature F" Field="TemperatureF" />
-                    <DxFormLayoutItem Caption="Summary" Field="Summary" />
-                    <DxFormLayoutItem ColSpanLg="12">
-                        <div class="w-100" style="display: flex; justify-content: end; gap: 1rem;">
-                            <DxButton RenderStyle=ButtonRenderStyle.Primary Text="Save" SubmitFormOnClick=true></DxButton>
-                            <DxButton RenderStyle=ButtonRenderStyle.Secondary Text="Cancel" Click="ClosePopup"></DxButton>
-                        </div>
-                    </DxFormLayoutItem>
+                <DxFormLayout Data="@editModel">
+                  // ...
                 </DxFormLayout>
             </EditForm>
         </BodyContentTemplate>
@@ -88,14 +66,14 @@ Add a `DxPopup` component and populate it with required edit form content. This 
 When a user submits the form and validation is successful ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
 
 ```
+private bool IsNew => !forecasts.Any(f => f.ID == editModel!.ID);
 private void OnValidSubmit(EditContext ctx) {
-    if(ctx.Model is not WeatherForecast wf) return;
+    // ...
     if(IsNew)
         InsertRecord(wf);
     else
         UpdateRecord(wf);
-    grid?.Reload();
-    ClosePopup();
+    // ...
 }
 ```
 
