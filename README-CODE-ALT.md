@@ -86,7 +86,7 @@ Populate the `DxPopup` component with required edit form content - data editors 
 
 ### Process User Input
 
-Add an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to the popup. Assign a function to the [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit) property. This function updates the data source when a user posts changes that pass validation.
+Assign a function to the [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit) property. This function updates the data source when a user posts changes that pass validation.
 
 ```razor
 <DxPopup Visible="PopupVisible">
