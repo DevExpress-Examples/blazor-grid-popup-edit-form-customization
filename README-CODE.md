@@ -12,22 +12,6 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 ## Implementation Details
 
-Implement a `ShowPopup()` method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record. The edit form appears when an edit model is available. 
-
-```
-@code {
-   private WeatherForecast? editModel;
-   private bool PopupVisible => editModel != null;
-
-   private void ShowPopup(object dataItem) {
-      // ...
-      editModel = new WeatherForecast() {
-         // ...
-      };
-   }
-}
-```
-
 Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
 
 ```
@@ -60,6 +44,22 @@ Add a `DxPopup` component and populate it with required edit form content. This 
             </EditForm>
         </BodyContentTemplate>
     </DxPopup>
+}
+```
+
+Implement a `ShowPopup()` method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record. When an edit model is available, the popup form appears. 
+
+```
+@code {
+   private WeatherForecast? editModel;
+   private bool PopupVisible => editModel != null;
+
+   private void ShowPopup(object dataItem) {
+      // ...
+      editModel = new WeatherForecast() {
+         // ...
+      };
+   }
 }
 ```
 
