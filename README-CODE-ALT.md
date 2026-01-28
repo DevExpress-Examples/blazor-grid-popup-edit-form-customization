@@ -36,7 +36,7 @@ Implement `ShowPopup()` and `ClosePopup()` methods that create and reset an [edi
 
 ### Update Data
 
-The popup form uses an an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input. When a user submits the form and validation is successful ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
+Add an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to the popup. When a user successfully submits the edit form ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
 
 ```
 <DxPopup Visible="PopupVisible">
@@ -62,7 +62,7 @@ The popup form uses an an [EditForm](https://learn.microsoft.com/en-us/dotnet/ap
 
 ### Add Command Buttons that Display the Edit Form
 
-Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
+Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons. Both buttons call the `ShowPopup()` method to initialize the edit model and display the popup form. 
 
 ```
 <DxGrid>
@@ -82,7 +82,7 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
 
 ### Finalize the Popup Form
 
-Populate the `DxPopup` component with required edit form content. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange editors.
+Populate the `DxPopup` component with required edit form content - data editors and action buttons. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange UI controls.
 
 ```
 <DxPopup Visible="PopupVisible">
