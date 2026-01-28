@@ -68,7 +68,7 @@ private void ClosePopup() {
 }
 ```
 
-When a user submits the form and validation is successful ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
+Process user input in a function assigned to [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit). This function runs when a user submits the form and validation passes successfully.
 
 ```razor
 private bool IsNew => !forecasts.Any(f => f.ID == editModel!.ID);
