@@ -12,31 +12,25 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 ## Implementation Details
 
-Add a `DxPopup` component and populate it with required edit form content. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
+Implement a `ShowPopup()` method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record. Popup appears when an edit model is available. 
 
 ```
-<DxPopup CloseOnEscape="false"
-         HeaderText="Custom Edit Form"
-         // ...
-         >
-    <BodyContentTemplate Context="popupContext">
-        <EditForm Model="@editModel" Context="editFormContext" OnValidSubmit="OnValidSubmit">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <DxFormLayout Data="@editModel" ItemUpdating="@((pair) => OnItemUpdating(pair.Key, pair.Value))">
-                <DxFormLayoutItem Caption="Date" Field="Date" />
-                <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC" />
-                <DxFormLayoutItem ReadOnly=true Caption="Temperature F" Field="TemperatureF" />
-                <DxFormLayoutItem Caption="Summary" Field="Summary" />
-                <DxFormLayoutItem ColSpanLg="12">
-                    <div class="w-100" style="display: flex; justify-content: end; gap: 1rem;">
-                        <DxButton RenderStyle=ButtonRenderStyle.Primary Text="Save" SubmitFormOnClick=true></DxButton>
-                        <DxButton RenderStyle=ButtonRenderStyle.Secondary Text="Cancel" Click="ClosePopup"></DxButton>
-                    </div>
-                </DxFormLayoutItem>
-            </DxFormLayout>
-        </EditForm>
-    </BodyContentTemplate>
-</DxPopup>
+@code {
+   private WeatherForecast? editModel;
+   private bool PopupVisible => editModel != null;
+
+   private void ShowPopup(object dataItem) {
+      if(dataItem is not WeatherForecast wf)
+         throw new InvalidOperationException("Invalid data item type.");
+
+      editModel = new WeatherForecast() {
+         ID = wf.ID,
+         Date = wf.Date,
+         TemperatureC = wf.TemperatureC,
+         Summary = wf.Summary
+      };
+   }
+}
 ```
 
 Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons.
@@ -61,23 +55,37 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
 </DxGrid>
 ```
 
-Implement a method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record (`ShowPopup` in our implementation).
+Add a `DxPopup` component and populate it with required edit form content. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange editors and an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to validate user input.
 
 ```
-private void ShowPopup(object dataItem) {
-    if(dataItem is not WeatherForecast wf)
-        throw new InvalidOperationException("Invalid data item type.");
-
-    editModel = new WeatherForecast() {
-        ID = wf.ID,
-        Date = wf.Date,
-        TemperatureC = wf.TemperatureC,
-        Summary = wf.Summary
-    };
+@if(PopupVisible) {
+    <DxPopup Visible="PopupVisible"
+             CloseOnEscape="false"
+             HeaderText="Custom Edit Form"
+             // ...
+             Width="600px">
+        <BodyContentTemplate Context="popupContext">
+            <EditForm Model="@editModel" Context="editFormContext" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <DxFormLayout Data="@editModel" ItemUpdating="@((pair) => OnItemUpdating(pair.Key, pair.Value))">
+                    <DxFormLayoutItem Caption="Date" Field="Date" />
+                    <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC" />
+                    <DxFormLayoutItem ReadOnly=true Caption="Temperature F" Field="TemperatureF" />
+                    <DxFormLayoutItem Caption="Summary" Field="Summary" />
+                    <DxFormLayoutItem ColSpanLg="12">
+                        <div class="w-100" style="display: flex; justify-content: end; gap: 1rem;">
+                            <DxButton RenderStyle=ButtonRenderStyle.Primary Text="Save" SubmitFormOnClick=true></DxButton>
+                            <DxButton RenderStyle=ButtonRenderStyle.Secondary Text="Cancel" Click="ClosePopup"></DxButton>
+                        </div>
+                    </DxFormLayoutItem>
+                </DxFormLayout>
+            </EditForm>
+        </BodyContentTemplate>
+    </DxPopup>
 }
 ```
 
-When a user submits the form and validation is successful ([EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
+When a user submits the form and validation is successful ([EditForm.OnValidSubmit()](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit)), update the data source. Create a new record, if necessary, and post new values.
 
 ```
 private void OnValidSubmit(EditContext ctx) {
@@ -88,20 +96,6 @@ private void OnValidSubmit(EditContext ctx) {
         UpdateRecord(wf);
     grid?.Reload();
     ClosePopup();
-}
-
-private void InsertRecord(WeatherForecast wf) {
-    wf.ID = forecasts.Max(f => f.ID) + 1;
-    forecasts.Add(wf);
-}
-
-private void UpdateRecord(WeatherForecast wf) {
-    var itemToUpdate = forecasts!.FirstOrDefault(f => f.ID == wf.ID);
-    if(itemToUpdate != null) {
-        itemToUpdate.TemperatureC = wf.TemperatureC;
-        itemToUpdate.Date = wf.Date;
-        itemToUpdate.Summary = wf.Summary;
-    }
 }
 ```
 
