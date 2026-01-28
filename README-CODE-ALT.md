@@ -43,7 +43,7 @@ Implement `ShowPopup()` and `ClosePopup()` methods that create and reset an [edi
 
 Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons. Both buttons call the `ShowPopup()` method to initialize the edit model and display the popup form. 
 
-```
+```razor
 <DxGrid>
     <Columns>
         <DxGridCommandColumn>
@@ -63,9 +63,10 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
 
 Populate the `DxPopup` component with required edit form content - data editors and action buttons. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange UI controls.
 
-```
+```razor
 <DxPopup Visible="PopupVisible">
    <BodyContentTemplate>
+      <EditForm Model="@editModel">
          <DxFormLayout Data="@editModel">
             <DxFormLayoutItem Caption="Date" Field="Date" />
             <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC" />
@@ -78,6 +79,7 @@ Populate the `DxPopup` component with required edit form content - data editors 
                </div>
             </DxFormLayoutItem>
          </DxFormLayout>
+      </EditForm>
    </BodyContentTemplate>
 </DxPopup>
 ```
@@ -86,7 +88,7 @@ Populate the `DxPopup` component with required edit form content - data editors 
 
 Add an [EditForm](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform) to the popup. Assign a function to the [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit) property. This function updates the data source when a user posts changes that pass validation.
 
-```
+```razor
 <DxPopup Visible="PopupVisible">
    <BodyContentTemplate>
       <EditForm Model="@editModel" OnValidSubmit="OnValidSubmit">
