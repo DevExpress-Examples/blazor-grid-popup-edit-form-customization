@@ -18,6 +18,7 @@ Add a `DxPopup` component and populate it with required edit form content. This 
 <DxPopup Visible="PopupVisible">
    <BodyContentTemplate>
       <EditForm Model="@editModel">
+         <DataAnnotationsValidator></DataAnnotationsValidator>
          <DxFormLayout Data="@editModel">
             <DxFormLayoutItem Caption="Date" Field="Date" />
             <DxFormLayoutItem Caption="Temperature C" Field="TemperatureC" />
