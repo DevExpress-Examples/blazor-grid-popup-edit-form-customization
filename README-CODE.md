@@ -12,7 +12,7 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 ## Implementation Details
 
-Implement a `ShowPopup()` method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record. Popup appears when an edit model is available. 
+Implement a `ShowPopup()` method that creates an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for a new or existing record. The edit form appears when an edit model is available. 
 
 ```
 @code {
