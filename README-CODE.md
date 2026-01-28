@@ -39,12 +39,12 @@ Add a `DxPopup` component and populate it with required edit form content. This 
             <EditForm Model="@editModel" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
                 <DxFormLayout Data="@editModel">
-                  // ...
-                     <DxFormLayoutItem>
-                        <DxButton Text="Save" SubmitFormOnClick=true></DxButton>
-                        <DxButton Text="Cancel" Click="ClosePopup"></DxButton>
-                     </DxFormLayoutItem>
-                </DxFormLayout>
+                   // ...
+                   <DxFormLayoutItem>
+                      <DxButton Text="Save" SubmitFormOnClick=true></DxButton>
+                      <DxButton Text="Cancel" Click="ClosePopup"></DxButton>
+                   </DxFormLayoutItem>
+               </DxFormLayout>
             </EditForm>
         </BodyContentTemplate>
     </DxPopup>
