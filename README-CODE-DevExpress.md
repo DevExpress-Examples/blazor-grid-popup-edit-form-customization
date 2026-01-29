@@ -38,7 +38,7 @@ Both buttons call the `ShowPopup()` method to initialize the [edit model](https:
    private bool PopupVisible => editModel != null;
 
    private void ShowPopup(object dataItem) {
-        editModel = new WeatherForecast() { ... };
+        editModel = new WeatherForecast() { /*...*/ };
    }
     private void ClosePopup() {
         editModel = null;
@@ -74,7 +74,7 @@ Declare a `DxPopup` component and populate it with data editors and action butto
 </DxPopup>
 
 @code {
-   private void OnValidSubmit(EditContext ctx) { ... }
+   private void OnValidSubmit(EditContext ctx) { /*...*/ }
 }
 
 ```
