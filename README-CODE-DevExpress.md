@@ -18,8 +18,8 @@ Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGr
 
 Add the following methods:
 
-- `ShowPopup()` - initializes the [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) and displays the popup form. Called by **New** and **Edit** buttons. 
-- `ClosePopup()` - clears the edit model and hides the popup. Will be called by the popup form's **Close** button.
+- `ShowPopup()` - Initializes the [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) and displays the popup form. Called by **New** and **Edit** buttons. 
+- `ClosePopup()` - Clears the edit model and hides the popup. Will be called by the popup form's **Close** button.
 
 ```razor
 <DxGrid>
