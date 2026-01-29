@@ -16,7 +16,7 @@ This example uses a [DevExpress Blazor Popup](https://docs.devexpress.com/Blazor
 
 Add a [command column](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) to your Grid markup. Use [HeaderTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.HeaderTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to add custom **New** and **Edit** buttons. 
 
-Both buttons call the `ShowPopup()` method to initialize the edit model and display the popup form. This method also initializes an [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) for the edit row. The `ClosePopup()` method clears the edit model and hides the popup. 
+Both buttons call the `ShowPopup()` method to initialize the [edit model](https://docs.devexpress.com/Blazor/404759/components/grid/editing-and-validation/edit-model) and display the popup form. The `ClosePopup()` method clears the edit model and hides the popup. The popup form's **Close** button will call this method.
 
 ```razor
 <DxGrid>
