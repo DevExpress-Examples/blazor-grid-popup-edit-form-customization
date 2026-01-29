@@ -49,7 +49,11 @@ Both buttons call the `ShowPopup()` method to initialize the [edit model](https:
 
 ### Construct Popup Form UI and Process User Input
 
-Declare a `DxPopup` component and populate it with data editors and action buttons. This example uses [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to arrange UI controls. An `EditForm` wraps the form content. A handler for [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit) updates the data source when a user posts changes.
+Declare a `DxPopup` component and populate it with data editors and action buttons. Use the following API: 
+
+- [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout): arranges UI controls.
+- `EditForm`, `DataAnnotationsValidator`: submit and validate user input. 
+- [EditForm.OnValidSubmit](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform.onvalidsubmit#microsoft-aspnetcore-components-forms-editform-onvalidsubmit): update the data source.
 
 ```razor
 <DxPopup Visible="PopupVisible"
